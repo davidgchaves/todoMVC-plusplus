@@ -1,79 +1,75 @@
-# TodoMVC++ : Taking TodoMVC To Production
+# Notes on *Kevin Whinnery's Workshop: Complete Node.js - From Zero to Production*
 
-TodoMVC++ is the companion application for Zero to Production with Node.js.
-To learn more about how this application works, check out the video course on
-[Frontend Masters](https://www.frontendmasters.com).
+## 0. Setup and Running Locally
 
-This application is based on [TodoMVC](http://todomvc.com/), and specifically
-on a [Vue.js implementation](http://todomvc.com/examples/vue/) by Evan You.
+### Installing `Node` modules
 
-## Running Locally
+```console
+❯ npm install
+```
 
-### Installing Node.js and npm
+### Installing and Starting `Postgres`
 
-This application has been tested on Node.js 6 and npm 3 - these packages should
-be available for download [here](https://nodejs.org/en/) - choose the "Current"
-version for download.
+On a Mac, the easiest path to installing `Postgres` is [`Homebrew`](http://brew.sh/):
 
-### Installing Node.js modules
+```console
+❯ brew update
+❯ brew install postgresql
+```
 
-Once you have Node and npm installed and this repository downloaded, you'll need
-to install the application's dependencies. Do this with:
+Start `Postgres`:
 
-    npm install
+```console
+❯ pg_ctl -D /usr/local/var/postgres start
+```
 
-For development you'll probably want to install the following modules globally:
+### Setting up the databases
 
-    npm install -g grunt-cli sequelize-cli
+Create the databases for the project and apply the migrations:
 
-### Setting up the database
+```console
+❯ createdb todos
+❯ createdb todos-test
+❯ npm run migrate
+```
 
-To run this application locally, you'll require a Postgres database. On a Mac,
-the easiest path to installing Postgres is [Homebrew](http://brew.sh/). Once
-installed, grab Postgres with:
+### (Optional) Using `ElephantSQL` rather than a local `Postgres` DB
 
-    brew update
-    brew install postgres
+If `Postgres` is **not** installed locally, you can setup a free instance as follows:
 
-If Postgres is installed using the method above, you should now have a few
-Postgres administrative commands on your system path. Begin by firing up another
-Terminal tab and starting the database:
+  1. Visit [`ElephantSQL`](https://elephantsql.com).
+  2. Login and setup a *free* tiny turtle instance.
+  3. Goto *Details* and copy the `Postgres` url.
 
-    postgres -D /usr/local/var/postgres
+Create a `config/user.js` file and change the value of `config.database` accordingly:
 
-Next, create the development and test databases:
+``` js
+'use strict'
 
-    createdb todos
-    createdb todos-test
+let config = {}
+config.databaseUrl = 'postgres://whatever:fromElephantSQLWeb'
 
-If Postgres is **not** installed locally, you can setup a free instance as follows:
-- visit https://elephantsql.com
-- login and setup a *free* tiny turtle instance
-- goto "Details" and copy the url. It should look something like this [postgres://abcdefg:icRAC...](https://customer.elephantsql.com/instance)
-- in the project, copy `config/test.js` to `config/user.js`
-- set `config.databaseUrl` to your copied postgres url
-- don't forget to run `sequelize db:migrate`
+module.exports = config;
+```
 
-Apply the database migrations:
+Migrate the database:
 
-    sequelize db:migrate
+``` console
+❯ npm run migrate
+```
 
-Copy over static assets:
+### Running the application in development mode
 
-    grunt collect_static
+```console
+❯ NODE_ENV=development
+❯ npm run grunt collect_static
+❯ npm run grunt
+```
 
-### Running the application
+### Running the application simulating production settings
 
-To run the application in development mode:
-
-    grunt
-
-To run the application simulating production settings:
-
-    NODE_ENV=production
-    grunt collect_static
-    npm start
-
-## License
-
-MIT
+```console
+❯ NODE_ENV=production
+❯ npm run grunt collect_static
+❯ npm start
+```
