@@ -73,3 +73,43 @@ Migrate the database:
 ❯ npm run grunt collect_static
 ❯ npm start
 ```
+
+
+## 1. The `express` web server
+
+### The most basic `express` server with `middleware`
+
+`index.js`
+
+``` js
+const express = require('express')
+const createUserMiddleware = require('./middleware')
+const app = express()
+
+app.use(createUserMiddleware('Dave'))
+
+app.get('/hal', (req, res) =>
+  res.send(`Just what do you think you are doing, ${req.user.name}?`)
+)
+
+app.listen(4000)
+```
+
+`middleware.js`
+
+``` js
+const createUser = username =>
+  (req, res, next) => {
+    req.user = { name: username }
+    next()
+  }
+}
+
+module.exports = createUser
+```
+
+#### Run it, Hit it, Get it
+
+1. Run it with `❯ node index.js`.
+2. Hit it at `http://localhost:4000/hal`.
+3. Get `Just what do you think you are doing, Dave?`.
