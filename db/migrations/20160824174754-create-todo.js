@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
 module.exports = {
-  up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Todos', {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('Todos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,10 +20,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
-  },
+    }),
 
-  down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Todos');
-  }
-};
+  down: (queryInterface, Sequelize) =>
+    queryInterface.dropTable('Todos')
+}

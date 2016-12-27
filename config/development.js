@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-// Dev environment settings
+// Development environment settings
 let config = {
   databaseOptions: {
     logging: console.log
   }
-};
+}
 
-module.exports = config;
+module.exports = config

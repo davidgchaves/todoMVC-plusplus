@@ -1,18 +1,16 @@
-'use strict';
+'use strict'
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: (queryInterface, Sequelize) =>
     queryInterface.addColumn(
-      'Todos', // name of table
-      'completed', // name of attribute
-      Sequelize.BOOLEAN
-    );
-  },
+      'Todos',          // Name of an existing Table
+      'completed',      // Name of the Attribute to add
+      Sequelize.BOOLEAN // DataType of the Attribute
+    ),
 
-  down: function (queryInterface, Sequelize) {
+  down: (queryInterface, Sequelize) =>
     queryInterface.removeColumn(
-      'Todos', // name of table
-      'completed' //name of column
-    );
-  }
-};
+      'Todos',     // Name of an existing Table
+      'completed'  // Name of the Attribute to remove
+    )
+}

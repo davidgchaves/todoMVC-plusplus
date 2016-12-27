@@ -1,11 +1,13 @@
-'use strict';
+'use strict'
 
-const Sequelize = require('sequelize');
-const db = require('./db');
+const Sequelize = require('sequelize')
+const db = require('./db')
 
-let Todo = db.define('Todo', {
+const todoSchema = {
   title: Sequelize.TEXT,
   completed: Sequelize.BOOLEAN
-});
+}
 
-module.exports = Todo;
+const Todo = db.define('Todo', todoSchema)
+
+module.exports = Todo

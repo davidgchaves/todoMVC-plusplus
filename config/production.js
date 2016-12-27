@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 // Production environment settings
-let config = {};
+let config = {}
 
 // Pull in production RDS connection string
-config.databaseUrl = process.env.RDS_CONNECTION_URL;
+config.databaseUrl = process.env.RDS_CONNECTION_URL
 
-module.exports = config;
+module.exports = config

@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 // Test environment settings
-let config = {};
+let config = {}
 
 // Use special purpose test database
-config.databaseUrl = 'postgres://localhost:5432/todos-test';
+config.databaseUrl = 'postgres://localhost:5432/todos-test'
 
-module.exports = config;
+module.exports = config
