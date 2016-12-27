@@ -2,6 +2,10 @@
 
 ## 0. Setup and Running Locally
 
+### Links
+
+- [TodoMVC++ Github Repo](https://github.com/kwhinnery/todomvc-plusplus): TodoMVC++ is the companion application for Zero to Production with Node.js.
+
 ### Installing `Node` modules
 
 ```console
@@ -49,7 +53,7 @@ Create a `config/user.js` file and change the value of `config.database` accordi
 let config = {}
 config.databaseUrl = 'postgres://whatever:fromElephantSQLWeb'
 
-module.exports = config;
+module.exports = config
 ```
 
 Migrate the database:
@@ -103,7 +107,6 @@ const createUser = username =>
     req.user = { name: username }
     next()
   }
-}
 
 module.exports = createUser
 ```
