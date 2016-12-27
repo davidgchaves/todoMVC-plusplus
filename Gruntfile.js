@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   grunt.initConfig({
     // Make package info available to tasks
     pkg: grunt.file.readJSON('package.json'),
@@ -17,11 +17,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-        dist: {
-          files: {
-            'public/app.min.js': 'public/app.js'
-          }
+      dist: {
+        files: {
+          'public/app.min.js': 'public/app.js'
         }
+      }
     },
 
     // Compile Sass stylesheets
@@ -84,24 +84,24 @@ module.exports = function(grunt) {
       }
     }
 
-  });
+  })
 
   // Load third party tasks
-  grunt.loadNpmTasks('grunt-sass');
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-concurrent');
-  grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-sass')
+  grunt.loadNpmTasks('grunt-browserify')
+  grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-nodemon')
+  grunt.loadNpmTasks('grunt-concurrent')
+  grunt.loadNpmTasks('grunt-shell')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
 
   // Default is running the local development server
-  grunt.registerTask('default', ['sass:dev', 'browserify', 'concurrent:dev']);
+  grunt.registerTask('default', ['sass:dev', 'browserify', 'concurrent:dev'])
 
   // Build production assets
   grunt.registerTask('collect_static',
-    ['init_static', 'sass:dist', 'browserify', 'uglify']);
+    ['init_static', 'sass:dist', 'browserify', 'uglify'])
 
   // Custom tasks
-  grunt.loadTasks('bin/tasks');
-};
+  grunt.loadTasks('bin/tasks')
+}
