@@ -1,22 +1,21 @@
-'use strict';
+'use strict'
 
-const Router = require('director').Router;
+const Router = require('director').Router
 
-module.exports = (app) => {
-  let router = new Router();
+module.exports = app => {
+  const router = new Router()
+  const states = ['all', 'active', 'completed']
 
-  ['all', 'active', 'completed'].forEach(function (visibility) {
-    router.on(visibility, function () {
-      app.visibility = visibility;
-    });
-  });
+  states.forEach(visibility =>
+    router.on(visibility, () => { app.visibility = visibility })
+  )
 
   router.configure({
-    notfound: function () {
-      window.location.hash = '';
-      app.visibility = 'all';
+    notfound: () => {
+      window.location.hash = ''
+      app.visibility = 'all'
     }
-  });
+  })
 
-  router.init();
-};
+  router.init()
+}
