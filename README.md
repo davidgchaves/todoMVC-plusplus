@@ -4,7 +4,9 @@
 
 ### Links
 
-- [TodoMVC++ Github Repo](https://github.com/kwhinnery/todomvc-plusplus): TodoMVC++ is the companion application for Zero to Production with Node.js.
+- [TodoMVC++ Github Repo](https://github.com/kwhinnery/todomvc-plusplus): TodoMVC++ is the companion application for Zero to Production with Node.
+- [The Elastic Beanstalk Command Line Interface (EB CLI)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html): Command line interface for Elastic Beanstalk.
+
 
 ### Installing `Node` modules
 
@@ -116,3 +118,56 @@ module.exports = createUser
 1. Run it with `❯ node index.js`.
 2. Hit it at `http://localhost:4000/hal`.
 3. Get `Just what do you think you are doing, Dave?`.
+
+
+## 2. Production Environment
+
+### Lingo
+
+EB -> Elastic BeanStalk.
+RDS -> Relational Database Service.
+
+### Deploy a Node App on AWS
+
+One possible pipeline to get a Node App deployed on AWS using:
+
+- EB:
+  - Elastic Load Balancer.
+  - EB Environment.
+  - Provisions EC2 instances within an AutoScaled Group.
+- RDS database on the backend.
+
+### Provisioning an EB Environment
+
+1. Select an AWS Region.
+2. Create a user with sufficient permissions.
+3. Create an EB environment (will be added to a security group).
+  - Fully functional execution environment for your App.
+  - Typically you'll have multiple environments:
+    - Development
+    - Staging
+    - Production
+4. Create an RDS instance (add to same EB security group).
+  - Our EB environment instances can connect to our RDS instance.
+  - The outside world can't directly connect to out RDS instance.
+5. Configure security group to allow incoming connections to Postgres.
+6. Deploy application version.
+
+### The Elastic Beanstalk Command Line Interface (EB CLI)
+
+``` console
+❯ brew install aws-elasticbeanstalk
+```
+
+### `eb` workflow
+
+``` console
+❯ eb init
+❯ eb create
+❯ eb deploy
+```
+
+#### Where to store the DB Connection String?
+
+- If you configure your RDS instance to **NOT** accept traffic from the outside, then it's not the end of the world to have the DB Connection String as an Environment Variable (accessible through the console UI).
+- But there's an ever better way to store secure credentials in a S3 bucket (in an XML or JSON file) and then load them into the system environment (not accessible through the console UI).
