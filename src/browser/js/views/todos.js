@@ -2,7 +2,6 @@
 
 const Vue = require('vue')
 const todoStorage = require('../util/store')
-let socket = io()
 
 let filters = {
   all: todos => todos,

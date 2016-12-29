@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 const routes = require('./controllers/routes')
 const morgan = require('morgan')
 const noShenanigans = require('./middlewares/noShenanigans')
+// Basic Rollbar Usage
+// const rollbar = require('rollbar')
 
 let app = express()
 
@@ -29,6 +31,9 @@ app.use('/todos', noShenanigans())
 
 // Mount application routes
 routes(app)
+
+// Rollbar Middleware
+// app.use(rollbar.errorHandler('TYPE-YOUR-KEY-HERE'))
 
 // Export Express webapp instance
 module.exports = app
