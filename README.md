@@ -6,7 +6,12 @@
 
 - [TodoMVC++ Github Repo](https://github.com/kwhinnery/todomvc-plusplus): TodoMVC++ is the companion application for Zero to Production with Node.
 - [The Elastic Beanstalk Command Line Interface (EB CLI)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html): Command line interface for Elastic Beanstalk.
-
+- [ngrok](https://ngrok.com/): Secure tunnels to localhost.
+- [Locust](http://locust.io/): An open source load testing tool.
+- [Rollbar](https://rollbar.com/): Error tracking Service for the Server side.
+- [TrackJS](https://trackjs.com/): Error tracking on the Client side.
+- [Google Analytics](https://www.google.com/analytics/)
+- [universal-analytics](https://www.npmjs.com/package/universal-analytics): A node module for Google's Universal Analytics tracking.
 
 ### Installing `Node` modules
 
@@ -171,3 +176,52 @@ One possible pipeline to get a Node App deployed on AWS using:
 
 - If you configure your RDS instance to **NOT** accept traffic from the outside, then it's not the end of the world to have the DB Connection String as an Environment Variable (accessible through the console UI).
 - But there's an ever better way to store secure credentials in a S3 bucket (in an XML or JSON file) and then load them into the system environment (not accessible through the console UI).
+
+## 3. Preparing our Application for production
+
+### Installing Locust
+
+Install libevent (dependency for gevent):
+
+``` console
+❯ brew install libevent
+```
+
+Install locust:
+
+``` console
+❯ pip install locustio
+```
+
+### Configuring Locust
+
+Locust opens a new file per new simutaled user, when testing.
+  - 1000 opened files means 1000 concurrent users.
+
+Raise the number of open files to 1000, in the context of the current terminal session:
+
+``` console
+❯ ulimit -n 1000
+```
+
+### Installing Rollbar
+
+``` console
+❯ npm install --save rollbar
+```
+
+### Basic Rollbar Configuration
+
+``` js
+const express = require('express')
+// Basic Rollbar Usage
+const rollbar = require('rollbar')
+
+let app = express()
+
+// Rollback Middleware
+app.use(rollbar.errorHandler('TYPE-YOUR-KEY-HERE'))
+
+// Export Express webapp instance
+module.exports = app
+```
